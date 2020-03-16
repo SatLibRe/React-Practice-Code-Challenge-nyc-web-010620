@@ -10,7 +10,8 @@ const API = "http://localhost:3000/sushis"
 class App extends Component {
 
   state = {
-    sushis: []
+    sushis: [],
+    platesArr: []
   }
 
   componentDidMount(){
@@ -33,7 +34,8 @@ class App extends Component {
     let copyArr = [...this.state.sushis]
     copyArr[foundSushiIndex] = sushi
     this.setState({
-      sushis: copyArr
+      sushis: copyArr,
+      platesArr: [...this.state.platesArr,1]
     })
   }
 
@@ -41,7 +43,7 @@ class App extends Component {
     return (
       <div className="app">
         <SushiContainer sushis={this.state.sushis.slice(0,4)}  handleMoreSushi={this.handleMoreSushi} handleEatSushi={s => this.handleEatSushi(s)}/>
-        <Table />
+        <Table plates={this.state.platesArr}/>
       </div>
     );
   }
