@@ -12,7 +12,7 @@ class App extends Component {
   state = {
     sushis: [],
     platesArr: [],
-    money: 1000
+    money: 20
   }
 
   componentDidMount(){
@@ -30,15 +30,19 @@ class App extends Component {
   }
 
   handleEatSushi = (sushi) => {
-    let foundSushiIndex = this.state.sushis.findIndex(s => s.id === sushi.id)
-    sushi.eaten = true
-    let copyArr = [...this.state.sushis]
-    copyArr[foundSushiIndex] = sushi
-    this.setState({
-      sushis: copyArr,
-      platesArr: [...this.state.platesArr,1],
-      money: this.state.money - 10
-    })
+    if(this.state.money - sushi.price > 0){
+      let foundSushiIndex = this.state.sushis.findIndex(s => s.id === sushi.id)
+      sushi.eaten = true
+      let copyArr = [...this.state.sushis]
+      copyArr[foundSushiIndex] = sushi
+      this.setState({
+        sushis: copyArr,
+        platesArr: [...this.state.platesArr,1],
+        money: this.state.money - sushi.price
+      })
+    } else {
+      alert("This is America, if you are poor, you don't deserve to eat!")
+    }
   }
 
   render() {
