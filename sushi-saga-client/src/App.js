@@ -12,7 +12,10 @@ class App extends Component {
   state = {
     sushis: [],
     platesArr: [],
-    money: 20
+    money: 25,
+    startSlice: 0,
+    endSlice: 4
+
   }
 
   componentDidMount(){
@@ -26,11 +29,14 @@ class App extends Component {
   }
 
   handleMoreSushi = () => {
-    
+    this.setState({
+      startSlice: this.state.startSlice + 4,
+      endSlice: this.state.endSlice + 4
+    })
   }
 
   handleEatSushi = (sushi) => {
-    if(this.state.money - sushi.price > 0){
+    if(this.state.money - sushi.price >= 0 && !sushi.eaten){
       let foundSushiIndex = this.state.sushis.findIndex(s => s.id === sushi.id)
       sushi.eaten = true
       let copyArr = [...this.state.sushis]
@@ -41,14 +47,15 @@ class App extends Component {
         money: this.state.money - sushi.price
       })
     } else {
-      alert("This is America, if you are poor, you don't deserve to eat!")
+      alert("Already Eaten or No Money ")
     }
   }
 
   render() {
     return (
       <div className="app">
-        <SushiContainer sushis={this.state.sushis.slice(0,4)}  handleMoreSushi={this.handleMoreSushi} handleEatSushi={s => this.handleEatSushi(s)}/>
+        
+        <SushiContainer sushis={this.state.sushis.slice(this.state.startSlice,this.state.endSlice)}  handleMoreSushi={this.handleMoreSushi} handleEatSushi={s => this.handleEatSushi(s)}/>
         <Table plates={this.state.platesArr} money={this.state.money}/>
       </div>
     );
