@@ -23,10 +23,19 @@ class App extends Component {
     })
   }
 
+  handleMoreSushi = () => {
+    
+  }
+
+  handleEatSushi = (sushi) => {
+    sushi.eaten = true
+    console.log(sushi)
+  }
+
   render() {
     return (
       <div className="app">
-        <SushiContainer sushis={this.state.sushis.slice(0,4)}/>
+        <SushiContainer sushis={this.state.sushis.slice(0,4)}  handleMoreSushi={this.handleMoreSushi} handleEatSushi={s => this.handleEatSushi(s)}/>
         <Table />
       </div>
     );
