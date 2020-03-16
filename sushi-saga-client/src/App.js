@@ -11,7 +11,8 @@ class App extends Component {
 
   state = {
     sushis: [],
-    platesArr: []
+    platesArr: [],
+    money: 1000
   }
 
   componentDidMount(){
@@ -35,7 +36,8 @@ class App extends Component {
     copyArr[foundSushiIndex] = sushi
     this.setState({
       sushis: copyArr,
-      platesArr: [...this.state.platesArr,1]
+      platesArr: [...this.state.platesArr,1],
+      money: this.state.money - 10
     })
   }
 
@@ -43,7 +45,7 @@ class App extends Component {
     return (
       <div className="app">
         <SushiContainer sushis={this.state.sushis.slice(0,4)}  handleMoreSushi={this.handleMoreSushi} handleEatSushi={s => this.handleEatSushi(s)}/>
-        <Table plates={this.state.platesArr}/>
+        <Table plates={this.state.platesArr} money={this.state.money}/>
       </div>
     );
   }
