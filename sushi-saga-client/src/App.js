@@ -28,8 +28,13 @@ class App extends Component {
   }
 
   handleEatSushi = (sushi) => {
+    let foundSushiIndex = this.state.sushis.findIndex(s => s.id === sushi.id)
     sushi.eaten = true
-    console.log(sushi)
+    let copyArr = [...this.state.sushis]
+    copyArr[foundSushiIndex] = sushi
+    this.setState({
+      sushis: copyArr
+    })
   }
 
   render() {
