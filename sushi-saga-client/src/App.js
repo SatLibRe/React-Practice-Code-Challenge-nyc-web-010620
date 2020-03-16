@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SushiContainer from './containers/SushiContainer';
 import Table from './containers/Table';
+import MoreMoneyForm from './components/MoreMoneyForm';
 
 // Endpoint!
 const API = "http://localhost:3000/sushis"
@@ -51,11 +52,19 @@ class App extends Component {
     }
   }
 
+  handleSubmit = (event) => {
+    event.preventDefault()
+    let newMoney = parseInt(event.target.elements[0].value)
+    this.setState({
+      money: this.state.money + newMoney
+    })
+  }
+
   render() {
     return (
       <div className="app">
-        
         <SushiContainer sushis={this.state.sushis.slice(this.state.startSlice,this.state.endSlice)}  handleMoreSushi={this.handleMoreSushi} handleEatSushi={s => this.handleEatSushi(s)}/>
+        <MoreMoneyForm id="more-money-form" handleSubmit={this.handleSubmit}/>
         <Table plates={this.state.platesArr} money={this.state.money}/>
       </div>
     );
